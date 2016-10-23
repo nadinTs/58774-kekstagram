@@ -1,11 +1,11 @@
 'use strict';
 
-(function () {
+(function() {
   /**
    * @constructor
    * @param {string} image
    */
-  var Resizer = function (image) {
+  var Resizer = function(image) {
     // Изображение, с которым будет вестись работа.
     this._image = new Image();
     this._image.src = image;
@@ -15,7 +15,7 @@
     this._ctx = this._container.getContext('2d');
 
     // Создаем холст только после загрузки изображения.
-    this._image.onload = function () {
+    this._image.onload = function() {
       // Размер холста равен размеру загруженного изображения. Это нужно
       // для удобства работы с координатами.
       this._container.width = this._image.naturalWidth;
@@ -79,7 +79,7 @@
     /**
      * Отрисовка канваса.
      */
-    redraw: function () {
+    redraw: function() {
       // Очистка изображения.
       this._ctx.clearRect(0, 0, this._container.width, this._container.height);
 
@@ -129,10 +129,10 @@
       this._ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
 
       this._ctx.beginPath();
-      this._ctx.moveTo((-this._resizeConstraint.side / 2) - this._ctx.lineWidth , (-this._resizeConstraint.side / 2) - this._ctx.lineWidth );
-      this._ctx.lineTo( (-this._resizeConstraint.side / 2) - this._ctx.lineWidth ,  this._resizeConstraint.side/2 - this._ctx.lineWidth/4 );
-      this._ctx.lineTo( this._resizeConstraint.side/2 - this._ctx.lineWidth/4 , (this._resizeConstraint.side / 2) - this._ctx.lineWidth / 4 );
-      this._ctx.lineTo( this._resizeConstraint.side/2 - this._ctx.lineWidth/4 , (-this._resizeConstraint.side / 2) - this._ctx.lineWidth  );
+      this._ctx.moveTo((-this._resizeConstraint.side / 2) - this._ctx.lineWidth, (-this._resizeConstraint.side / 2) - this._ctx.lineWidth );
+      this._ctx.lineTo( (-this._resizeConstraint.side / 2) - this._ctx.lineWidth, this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4 );
+      this._ctx.lineTo( this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4, (this._resizeConstraint.side / 2) - this._ctx.lineWidth / 4 );
+      this._ctx.lineTo( this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4, (-this._resizeConstraint.side / 2) - this._ctx.lineWidth );
       this._ctx.closePath();
       this._ctx.restore();
 
@@ -149,7 +149,7 @@
       this._ctx.fillStyle = '#ffffff';
       this._ctx.font = '18px Tahoma';
       var sizeImg = this._image.naturalWidth + ' x ' + this._image.naturalHeight;
-      this._ctx.fillText(sizeImg ,this._container.width / 2 - 40, this._resizeConstraint.side/10);
+      this._ctx.fillText(sizeImg, this._container.width / 2 - 40, this._resizeConstraint.side / 10);
     },
 
     /**
@@ -160,7 +160,7 @@
      * @param {number} y
      * @private
      */
-    _enterDragMode: function (x, y) {
+    _enterDragMode: function(x, y) {
       this._cursorPosition = new Coordinate(x, y);
       document.body.addEventListener('mousemove', this._onDrag);
       document.body.addEventListener('mouseup', this._onDragEnd);
@@ -170,7 +170,7 @@
      * Выключение режима перемещения.
      * @private
      */
-    _exitDragMode: function () {
+    _exitDragMode: function() {
       this._cursorPosition = null;
       document.body.removeEventListener('mousemove', this._onDrag);
       document.body.removeEventListener('mouseup', this._onDragEnd);
@@ -182,7 +182,7 @@
      * @param {number} y
      * @private
      */
-    updatePosition: function (x, y) {
+    updatePosition: function(x, y) {
       this.moveConstraint(
         this._cursorPosition.x - x,
         this._cursorPosition.y - y);
@@ -193,7 +193,7 @@
      * @param {MouseEvent} evt
      * @private
      */
-    _onDragStart: function (evt) {
+    _onDragStart: function(evt) {
       this._enterDragMode(evt.clientX, evt.clientY);
     },
 
@@ -201,7 +201,7 @@
      * Обработчик окончания перетаскивания.
      * @private
      */
-    _onDragEnd: function () {
+    _onDragEnd: function() {
       this._exitDragMode();
     },
 
@@ -210,7 +210,7 @@
      * @param {MouseEvent} evt
      * @private
      */
-    _onDrag: function (evt) {
+    _onDrag: function(evt) {
       this.updatePosition(evt.clientX, evt.clientY);
     },
 
@@ -218,7 +218,7 @@
      * Добавление элемента в DOM.
      * @param {Element} element
      */
-    setElement: function (element) {
+    setElement: function(element) {
       if (this._element === element) {
         return;
       }
@@ -233,7 +233,7 @@
      * Возвращает кадрирование элемента.
      * @return {Square}
      */
-    getConstraint: function () {
+    getConstraint: function() {
       return this._resizeConstraint;
     },
 
@@ -243,7 +243,7 @@
      * @param {number} deltaY
      * @param {number} deltaSide
      */
-    moveConstraint: function (deltaX, deltaY, deltaSide) {
+    moveConstraint: function(deltaX, deltaY, deltaSide) {
       this.setConstraint(
         this._resizeConstraint.x + (deltaX || 0),
         this._resizeConstraint.y + (deltaY || 0),
@@ -255,7 +255,7 @@
      * @param {number} y
      * @param {number} side
      */
-    setConstraint: function (x, y, side) {
+    setConstraint: function(x, y, side) {
       if (typeof x !== 'undefined') {
         this._resizeConstraint.x = x;
       }
@@ -268,7 +268,7 @@
         this._resizeConstraint.side = side;
       }
 
-      requestAnimationFrame(function () {
+      requestAnimationFrame(function() {
         this.redraw();
         var resizerChangeEvent = document.createEvent('CustomEvent');
         resizerChangeEvent.initEvent('resizerchange', false, false);
@@ -280,7 +280,7 @@
      * Удаление. Убирает контейнер из родительского элемента, убирает
      * все обработчики событий и убирает ссылки.
      */
-    remove: function () {
+    remove: function() {
       this._element.removeChild(this._container);
 
       this._container.removeEventListener('mousedown', this._onDragStart);
@@ -292,7 +292,7 @@
      * картинки в src в формате dataURL.
      * @return {Image}
      */
-    exportImage: function () {
+    exportImage: function() {
       // Создаем Image, с размерами, указанными при кадрировании.
       var imageToExport = new Image();
 
@@ -322,7 +322,7 @@
    * @param {number} side
    * @private
    */
-  var Square = function (x, y, side) {
+  var Square = function(x, y, side) {
     this.x = x;
     this.y = y;
     this.side = side;
@@ -335,7 +335,7 @@
    * @param {number} y
    * @private
    */
-  var Coordinate = function (x, y) {
+  var Coordinate = function(x, y) {
     this.x = x;
     this.y = y;
   };
