@@ -106,6 +106,8 @@
 
       var displX = -(this._resizeConstraint.x + this._resizeConstraint.side / 2);
       var displY = -(this._resizeConstraint.y + this._resizeConstraint.side / 2);
+      var side = this._resizeConstraint.side;
+      var lineWidth = this._ctx.lineWidth;
       // Отрисовка изображения на холсте. Параметры задают изображение, которое
       // нужно отрисовать и координаты его верхнего левого угла.
       // Координаты задаются от центра холста.
@@ -113,31 +115,30 @@
 
       // Отрисовка прямоугольника, обозначающего область изображения после
       // кадрирования. Координаты задаются от центра.
-      this._ctx.strokeRect(
-        (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
-        (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
-        this._resizeConstraint.side - this._ctx.lineWidth / 2,
-        this._resizeConstraint.side - this._ctx.lineWidth / 2);
+      this._ctx.strokeRect((-side / 2) - lineWidth / 2,
+        (-side / 2) - lineWidth / 2,
+        side - lineWidth / 2,
+        side - lineWidth / 2);
 
-      this.drawDottedLine((-this._resizeConstraint.side / 2) - this._ctx.lineWidth + 4,
-        this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4 - 4,
-        (-this._resizeConstraint.side / 2) - this._ctx.lineWidth + 4,
-        (-this._resizeConstraint.side / 2) - this._ctx.lineWidth + 4, 4, 15, '#ffe753');
+      this.drawDottedLine((-side / 2) - lineWidth + 4,
+        side / 2 - lineWidth / 4 - 4,
+        (-side / 2) - lineWidth + 4,
+        (-side / 2) - lineWidth + 4, 4, 15, '#ffe753');
 
-      this.drawDottedLine((-this._resizeConstraint.side / 2) - this._ctx.lineWidth + 4,
-        this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4 - 4,
-        this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4 - 4,
-        (this._resizeConstraint.side / 2) - this._ctx.lineWidth - 4, 4, 15, '#ffe753');
+      this.drawDottedLine((-side / 2) - lineWidth + 4,
+        side / 2 - lineWidth / 4 - 4,
+        side / 2 - lineWidth / 4 - 4,
+        (side / 2) - lineWidth - 4, 4, 15, '#ffe753');
 
-      this.drawDottedLine((this._resizeConstraint.side / 2) - this._ctx.lineWidth - 4,
-        (-this._resizeConstraint.side / 2) - this._ctx.lineWidth + 4,
-        this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4 - 4,
-        (this._resizeConstraint.side / 2) - this._ctx.lineWidth - 4, 4, 15, '#ffe753');
+      this.drawDottedLine((side / 2) - lineWidth - 4,
+        (-side / 2) - lineWidth + 4,
+        side / 2 - lineWidth / 4 - 4,
+        (side / 2) - lineWidth - 4, 4, 15, '#ffe753');
 
-      this.drawDottedLine((-this._resizeConstraint.side / 2) - this._ctx.lineWidth + 4,
-        (-this._resizeConstraint.side / 2) - this._ctx.lineWidth + 4,
-        this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4 - 4,
-        (-this._resizeConstraint.side / 2) - this._ctx.lineWidth + 4, 4, 15, '#ffe753');
+      this.drawDottedLine((-side / 2) - lineWidth + 4,
+        (-side / 2) - lineWidth + 4,
+        side / 2 - lineWidth / 4 - 4,
+        (-side / 2) - lineWidth + 4, 4, 15, '#ffe753');
 
 
       // Восстановление состояния канваса, которое было до вызова ctx.save
@@ -150,10 +151,14 @@
       this._ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
 
       this._ctx.beginPath();
-      this._ctx.moveTo((-this._resizeConstraint.side / 2) - this._ctx.lineWidth, (-this._resizeConstraint.side / 2) - this._ctx.lineWidth);
-      this._ctx.lineTo((-this._resizeConstraint.side / 2) - this._ctx.lineWidth, this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4);
-      this._ctx.lineTo(this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4, (this._resizeConstraint.side / 2) - this._ctx.lineWidth / 4);
-      this._ctx.lineTo(this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4, (-this._resizeConstraint.side / 2) - this._ctx.lineWidth);
+      this._ctx.moveTo((-side / 2) - lineWidth,
+        (-side / 2) - lineWidth);
+      this._ctx.lineTo((-side / 2) - lineWidth,
+        side / 2 - lineWidth / 4);
+      this._ctx.lineTo( side / 2 - lineWidth / 4,
+        (side / 2) - lineWidth / 4);
+      this._ctx.lineTo(side / 2 - lineWidth / 4,
+        (-side / 2) - lineWidth);
       this._ctx.closePath();
       this._ctx.restore();
 
