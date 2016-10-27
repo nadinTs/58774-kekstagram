@@ -108,13 +108,20 @@
       var displY = -(this._resizeConstraint.y + this._resizeConstraint.side / 2);
       var side = this._resizeConstraint.side;
       var lineWidth = this._ctx.lineWidth;
-      var dottColor = '#ffe753';
-      var dottCount = '15';
-      var dottRadius = '4';
+      var colorDot = '#ffe753';
+      var countDot = '15';
+      var radiusDot = '4';
       var sideHalf = side / 2;
       var widthHalf = lineWidth / 2;
       var widthQuarter = lineWidth / 4;
       var dotRadius = 4;
+      var coordF = (-sideHalf) - lineWidth;
+      var coordG = sideHalf - widthQuarter;
+      var coordA = coordF + dotRadius;
+      var coordB = coordG - dotRadius;
+      var coordC = sideHalf - lineWidth - dotRadius;
+      var coordD = (-sideHalf) - widthHalf;
+      var coordE = side - widthHalf;
       // Отрисовка изображения на холсте. Параметры задают изображение, которое
       // нужно отрисовать и координаты его верхнего левого угла.
       // Координаты задаются от центра холста.
@@ -122,30 +129,15 @@
 
       // Отрисовка прямоугольника, обозначающего область изображения после
       // кадрирования. Координаты задаются от центра.
-      this._ctx.strokeRect((-sideHalf) - widthHalf,
-        (-sideHalf) - widthHalf,
-        side - widthHalf,
-        side - widthHalf);
+      this._ctx.strokeRect(coordD, coordD, coordE, coordE);
 
-      this.drawDottedLine((-sideHalf) - lineWidth + dotRadius,
-        sideHalf - widthQuarter - dotRadius,
-        (-sideHalf) - lineWidth + dotRadius,
-        (-sideHalf) - lineWidth + dotRadius, dottRadius, dottCount, dottColor);
+      this.drawDottedLine(coordA, coordB, coordA, coordA, radiusDot, countDot, colorDot);
 
-      this.drawDottedLine((-sideHalf) - lineWidth + dotRadius,
-        sideHalf - widthQuarter - dotRadius,
-        sideHalf - widthQuarter - dotRadius,
-        (sideHalf) - lineWidth - dotRadius, dottRadius, dottCount, dottColor);
+      this.drawDottedLine(coordA, coordB, coordB, coordC, radiusDot, countDot, colorDot);
 
-      this.drawDottedLine((sideHalf) - lineWidth - dotRadius,
-        (-sideHalf) - lineWidth + dotRadius,
-        sideHalf - widthQuarter - dotRadius,
-        (sideHalf) - lineWidth - dotRadius, dottRadius, dottCount, dottColor);
+      this.drawDottedLine(coordC, coordA, coordB, coordC, radiusDot, countDot, colorDot);
 
-      this.drawDottedLine((-sideHalf) - lineWidth + dotRadius,
-        (-sideHalf) - lineWidth + dotRadius,
-        sideHalf - widthQuarter - dotRadius,
-        (-sideHalf) - lineWidth + dotRadius, dottRadius, dottCount, dottColor);
+      this.drawDottedLine(coordA, coordA, coordB, coordA, radiusDot, countDot, colorDot);
 
 
       // Восстановление состояния канваса, которое было до вызова ctx.save
@@ -158,14 +150,10 @@
       this._ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
 
       this._ctx.beginPath();
-      this._ctx.moveTo((-side / 2) - lineWidth,
-        (-side / 2) - lineWidth);
-      this._ctx.lineTo((-side / 2) - lineWidth,
-        side / 2 - lineWidth / 4);
-      this._ctx.lineTo( side / 2 - lineWidth / 4,
-        (side / 2) - lineWidth / 4);
-      this._ctx.lineTo(side / 2 - lineWidth / 4,
-        (-side / 2) - lineWidth);
+      this._ctx.moveTo(coordF, coordF);
+      this._ctx.lineTo(coordF, coordG);
+      this._ctx.lineTo( coordG, coordG);
+      this._ctx.lineTo(coordG, coordF);
       this._ctx.closePath();
       this._ctx.restore();
 
