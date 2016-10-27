@@ -89,14 +89,14 @@
       // чего-либо с другой обводкой.
 
       // Толщина линии.
-      this._ctx.lineWidth = 6;
+      // this._ctx.lineWidth = 6;
       // Цвет обводки.
-      this._ctx.strokeStyle = '#ffe753';
+      // this._ctx.strokeStyle = '#ffe753';
       // Размер штрихов. Первый элемент массива задает длину штриха, второй
       // расстояние между соседними штрихами.
-      this._ctx.setLineDash([15, 10]);
+      // this._ctx.setLineDash([15, 10]);
       // Смещение первого штриха от начала линии.
-      this._ctx.lineDashOffset = 7;
+      // this._ctx.lineDashOffset = 7;
 
       // Сохранение состояния канваса.
       this._ctx.save();
@@ -106,6 +106,22 @@
 
       var displX = -(this._resizeConstraint.x + this._resizeConstraint.side / 2);
       var displY = -(this._resizeConstraint.y + this._resizeConstraint.side / 2);
+      var side = this._resizeConstraint.side;
+      var lineWidth = this._ctx.lineWidth;
+      var colorDot = '#ffe753';
+      var countDot = '15';
+      var radiusDot = '4';
+      var sideHalf = side / 2;
+      var widthHalf = lineWidth / 2;
+      var widthQuarter = lineWidth / 4;
+      var dotRadius = 4;
+      var coordF = (-sideHalf) - lineWidth;
+      var coordG = sideHalf - widthQuarter;
+      var coordA = coordF + dotRadius;
+      var coordB = coordG - dotRadius;
+      var coordC = sideHalf - lineWidth - dotRadius;
+      var coordD = (-sideHalf) - widthHalf;
+      var coordE = side - widthHalf;
       // Отрисовка изображения на холсте. Параметры задают изображение, которое
       // нужно отрисовать и координаты его верхнего левого угла.
       // Координаты задаются от центра холста.
@@ -113,11 +129,16 @@
 
       // Отрисовка прямоугольника, обозначающего область изображения после
       // кадрирования. Координаты задаются от центра.
-      this._ctx.strokeRect(
-        (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
-        (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
-        this._resizeConstraint.side - this._ctx.lineWidth / 2,
-        this._resizeConstraint.side - this._ctx.lineWidth / 2);
+      this._ctx.strokeRect(coordD, coordD, coordE, coordE);
+
+      this.drawDottedLine(coordA, coordB, coordA, coordA, radiusDot, countDot, colorDot);
+
+      this.drawDottedLine(coordA, coordB, coordB, coordC, radiusDot, countDot, colorDot);
+
+      this.drawDottedLine(coordC, coordA, coordB, coordC, radiusDot, countDot, colorDot);
+
+      this.drawDottedLine(coordA, coordA, coordB, coordA, radiusDot, countDot, colorDot);
+
 
       // Восстановление состояния канваса, которое было до вызова ctx.save
       // и последующего изменения системы координат. Нужно для того, чтобы
@@ -129,10 +150,10 @@
       this._ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
 
       this._ctx.beginPath();
-      this._ctx.moveTo((-this._resizeConstraint.side / 2) - this._ctx.lineWidth, (-this._resizeConstraint.side / 2) - this._ctx.lineWidth );
-      this._ctx.lineTo( (-this._resizeConstraint.side / 2) - this._ctx.lineWidth, this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4 );
-      this._ctx.lineTo( this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4, (this._resizeConstraint.side / 2) - this._ctx.lineWidth / 4 );
-      this._ctx.lineTo( this._resizeConstraint.side / 2 - this._ctx.lineWidth / 4, (-this._resizeConstraint.side / 2) - this._ctx.lineWidth );
+      this._ctx.moveTo(coordF, coordF);
+      this._ctx.lineTo(coordF, coordG);
+      this._ctx.lineTo( coordG, coordG);
+      this._ctx.lineTo(coordG, coordF);
       this._ctx.closePath();
       this._ctx.restore();
 
@@ -150,7 +171,28 @@
       this._ctx.font = '18px Tahoma';
       var sizeImg = this._image.naturalWidth + ' x ' + this._image.naturalHeight;
       this._ctx.fillText(sizeImg, this._container.width / 2 - 40, this._resizeConstraint.side / 10);
+
     },
+    drawDottedLine: function(x1, y1, x2, y2, dotRadius, dotCount, dotColor) {
+      var dx = x2 - x1;
+      var dy = y2 - y1;
+      var spaceX = dx / (dotCount - 1);
+      var spaceY = dy / (dotCount - 1);
+      var newX = x1;
+      var newY = y1;
+      for (var i = 0; i < dotCount; i++) {
+        this.drawDot(newX, newY, dotRadius, dotColor);
+        newX += spaceX;
+        newY += spaceY;
+      }
+    },
+    drawDot: function(x, y, dotRadius, dotColor) {
+      this._ctx.beginPath();
+      this._ctx.arc(x, y, dotRadius, 0, 2 * Math.PI, false);
+      this._ctx.fillStyle = dotColor;
+      this._ctx.fill();
+    },
+
 
     /**
      * Включение режима перемещения. Запоминается текущее положение курсора,
@@ -341,4 +383,5 @@
   };
 
   window.Resizer = Resizer;
+
 })();
