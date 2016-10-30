@@ -89,12 +89,12 @@
     if (resizeX.value > resizeX.max || resizeY.value > resizeY.max || resizeX.value < resizeX.min || resizeY.value < resizeY.min) {
       resizeFwd.setAttribute('disabled', 'disabled');
     } else {
-      resizeFwd.removeAttribute('disabled', 'disabled');
+      resizeFwd.removeAttribute('disabled');
       return true;
     }
     return false;
   };
-  uploadResize.oninput = resizeFormIsValid;
+  uploadResize.oninput = uploadResize.onchange = resizeFormIsValid;
   /**
    * Форма загрузки изображения.
    * @type {HTMLFormElement}
