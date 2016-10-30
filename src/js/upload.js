@@ -76,6 +76,7 @@
   var resizeY = document.getElementById('resize-y');
   var resizeSize = document.getElementById('resize-size');
   var resizeFwd = document.getElementById('resize-fwd');
+  var uploadResize = document.forms['upload-resize'];
 
   var resizeFormIsValid = function() {
     var sizeWidth = currentResizer._image.naturalWidth;
@@ -88,15 +89,18 @@
     if (resizeX.value > resizeX.max || resizeY.value > resizeY.max || resizeX.value < resizeX.min || resizeY.value < resizeY.min) {
       resizeFwd.setAttribute('disabled', 'disabled');
     } else {
+      resizeFwd.removeAttribute('disabled', 'disabled');
       return true;
     }
     return false;
   };
+  uploadResize.oninput = resizeFormIsValid;
   /**
    * Форма загрузки изображения.
    * @type {HTMLFormElement}
    */
   var uploadForm = document.forms['upload-select-image'];
+
 
   /**
    * Форма кадрирования изображения.
