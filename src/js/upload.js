@@ -7,7 +7,7 @@
 
 'use strict';
 
-(function () {
+(function() {
   /** @enum {string} */
   var FileType = {
     'GIF': '',
@@ -45,7 +45,7 @@
    * Удаляет текущий объект {@link Resizer}, чтобы создать новый с другим
    * изображением.
    */
-  var cleanupResizer = function () {
+  var cleanupResizer = function() {
     if (currentResizer) {
       currentResizer.remove();
       currentResizer = null;
@@ -55,7 +55,7 @@
   /**
    * Ставит одну из трех случайных картинок на фон формы загрузки.
    */
-  var updateBackground = function () {
+  var updateBackground = function() {
     var images = [
       'img/logo-background-1.jpg',
       'img/logo-background-2.jpg',
@@ -78,7 +78,7 @@
   var resizeFwd = document.getElementById('resize-fwd');
   var uploadResize = document.forms['upload-resize'];
 
-  var resizeFormIsValid = function () {
+  var resizeFormIsValid = function() {
     var sizeWidth = currentResizer._image.naturalWidth;
     var sizeHeight = currentResizer._image.naturalHeight;
     var side = resizeSize.value;
@@ -129,7 +129,7 @@
    * @param {string=} message
    * @return {Element}
    */
-  var showMessage = function (action, message) {
+  var showMessage = function(action, message) {
     var isError = false;
 
     switch (action) {
@@ -149,7 +149,7 @@
     return uploadMessage;
   };
 
-  var hideMessage = function () {
+  var hideMessage = function() {
     uploadMessage.classList.add('invisible');
   };
 
@@ -160,7 +160,7 @@
    * и показывается форма кадрирования.
    * @param {Event} evt
    */
-  uploadForm.onchange = function (evt) {
+  uploadForm.onchange = function(evt) {
     var element = evt.target;
     if (element.id === 'upload-file') {
       // Проверка типа загружаемого файла, тип должен быть изображением
@@ -170,7 +170,7 @@
 
         showMessage(Action.UPLOADING);
 
-        fileReader.onload = function () {
+        fileReader.onload = function() {
           cleanupResizer();
 
           currentResizer = new Resizer(fileReader.result);
@@ -196,7 +196,7 @@
    * и обновляет фон.
    * @param {Event} evt
    */
-  resizeForm.onreset = function (evt) {
+  resizeForm.onreset = function(evt) {
     evt.preventDefault();
 
     cleanupResizer();
@@ -211,7 +211,7 @@
    * кропнутое изображение в форму добавления фильтра и показывает ее.
    * @param {Event} evt
    */
-  resizeForm.onsubmit = function (evt) {
+  resizeForm.onsubmit = function(evt) {
     evt.preventDefault();
 
     if (resizeFormIsValid()) {
@@ -233,7 +233,7 @@
    * Сброс формы фильтра. Показывает форму кадрирования.
    * @param {Event} evt
    */
-  filterForm.onreset = function (evt) {
+  filterForm.onreset = function(evt) {
     evt.preventDefault();
 
     filterForm.classList.add('invisible');
@@ -250,7 +250,7 @@
   var old = new Date(1991, 11, 9);
   var day = Math.ceil((now - old) / (1000 * 60 * 60 * 24));
 
-  filterForm.onsubmit = function (evt) {
+  filterForm.onsubmit = function(evt) {
     evt.preventDefault();
 
     cleanupResizer();
@@ -267,7 +267,7 @@
 
   filterImage.className = 'filter-image-preview ' + Cookies.get('upload-filter');
 
-  filterForm.onchange = function () {
+  filterForm.onchange = function() {
     if (!filterMap) {
       // Ленивая инициализация. Объект не создается до тех пор, пока
       // не понадобится прочитать его в первый раз, а после этого запоминается
@@ -280,7 +280,7 @@
       };
     }
 
-    var selectedFilter = [].filter.call(filterForm['upload-filter'], function (item) {
+    var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
 
