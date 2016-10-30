@@ -7,7 +7,7 @@
 
 'use strict';
 
-(function () {
+(function() {
   /** @enum {string} */
   var FileType = {
     'GIF': '',
@@ -45,7 +45,7 @@
    * Удаляет текущий объект {@link Resizer}, чтобы создать новый с другим
    * изображением.
    */
-  var cleanupResizer = function () {
+  var cleanupResizer = function() {
     if (currentResizer) {
       currentResizer.remove();
       currentResizer = null;
@@ -55,7 +55,7 @@
   /**
    * Ставит одну из трех случайных картинок на фон формы загрузки.
    */
-  var updateBackground = function () {
+  var updateBackground = function() {
     var images = [
       'img/logo-background-1.jpg',
       'img/logo-background-2.jpg',
@@ -77,21 +77,20 @@
   var resizeSize = document.getElementById('resize-size');
   var resizeFwd = document.getElementById('resize-fwd');
 
-  var resizeFormIsValid = function () {
+  var resizeFormIsValid = function() {
     var sizeWidth = currentResizer._image.naturalWidth;
     var sizeHeight = currentResizer._image.naturalHeight;
     var side = resizeSize.value;
-    var sumX = sizeWidth - resizeX.value + side;
-    var sumY = resizeY + side;
     resizeX.max = sizeWidth - resizeX.value - side;
-    resizeY.max = sizeWidth - resizeY.value - side;
+    resizeY.max = sizeHeight - resizeY.value - side;
     resizeX.min = 0;
     resizeY.min = 0;
     if (resizeX.value > resizeX.max || resizeY.value > resizeY.max || resizeX.value < resizeX.min || resizeY.value < resizeY.min) {
-      resizeFwd.setAttribute("disabled", "disabled");
+      resizeFwd.setAttribute('disabled', 'disabled');
     } else {
       return true;
     }
+    return false;
   };
   /**
    * Форма загрузки изображения.
@@ -126,7 +125,7 @@
    * @param {string=} message
    * @return {Element}
    */
-  var showMessage = function (action, message) {
+  var showMessage = function(action, message) {
     var isError = false;
 
     switch (action) {
@@ -146,7 +145,7 @@
     return uploadMessage;
   };
 
-  var hideMessage = function () {
+  var hideMessage = function() {
     uploadMessage.classList.add('invisible');
   };
 
@@ -157,7 +156,7 @@
    * и показывается форма кадрирования.
    * @param {Event} evt
    */
-  uploadForm.onchange = function (evt) {
+  uploadForm.onchange = function(evt) {
     var element = evt.target;
     if (element.id === 'upload-file') {
       // Проверка типа загружаемого файла, тип должен быть изображением
@@ -167,7 +166,7 @@
 
         showMessage(Action.UPLOADING);
 
-        fileReader.onload = function () {
+        fileReader.onload = function() {
           cleanupResizer();
 
           currentResizer = new Resizer(fileReader.result);
@@ -193,7 +192,7 @@
    * и обновляет фон.
    * @param {Event} evt
    */
-  resizeForm.onreset = function (evt) {
+  resizeForm.onreset = function(evt) {
     evt.preventDefault();
 
     cleanupResizer();
@@ -208,7 +207,7 @@
    * кропнутое изображение в форму добавления фильтра и показывает ее.
    * @param {Event} evt
    */
-  resizeForm.onsubmit = function (evt) {
+  resizeForm.onsubmit = function(evt) {
     evt.preventDefault();
 
     if (resizeFormIsValid()) {
@@ -230,7 +229,7 @@
    * Сброс формы фильтра. Показывает форму кадрирования.
    * @param {Event} evt
    */
-  filterForm.onreset = function (evt) {
+  filterForm.onreset = function(evt) {
     evt.preventDefault();
 
     filterForm.classList.add('invisible');
@@ -242,7 +241,7 @@
    * записав сохраненный фильтр в cookie.
    * @param {Event} evt
    */
-  filterForm.onsubmit = function (evt) {
+  filterForm.onsubmit = function(evt) {
     evt.preventDefault();
 
     cleanupResizer();
@@ -256,7 +255,7 @@
    * Обработчик изменения фильтра. Добавляет класс из filterMap соответствующий
    * выбранному значению в форме.
    */
-  filterForm.onchange = function () {
+  filterForm.onchange = function() {
     if (!filterMap) {
       // Ленивая инициализация. Объект не создается до тех пор, пока
       // не понадобится прочитать его в первый раз, а после этого запоминается
@@ -269,7 +268,7 @@
       };
     }
 
-    var selectedFilter = [].filter.call(filterForm['upload-filter'], function (item) {
+    var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
 
