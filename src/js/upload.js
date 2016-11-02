@@ -71,15 +71,35 @@
    * Проверяет, валидны ли данные, в форме кадрирования.
    * @return {boolean}
    */
-  var resizeFormIsValid = function() {
-    return true;
-  };
 
+  var resizeX = document.getElementById('resize-x');
+  var resizeY = document.getElementById('resize-y');
+  var resizeSize = document.getElementById('resize-size');
+  var resizeFwd = document.getElementById('resize-fwd');
+  var uploadResize = document.forms['upload-resize'];
+  var sumX, sumY;
+
+  var resizeFormIsValid = function() {
+    var sizeWidth = currentResizer._image.naturalWidth;
+    var sizeHeight = currentResizer._image.naturalHeight;
+    sumX = Number(resizeSize.value) + Number(resizeX.value);
+    sumY = Number(resizeSize.value) + Number(resizeY.value);
+
+    if (sumX > sizeWidth || sumY > sizeHeight || resizeX.value < 0 || resizeY.value < 0) {
+      resizeFwd.setAttribute('disabled', 'disabled');
+    } else {
+      resizeFwd.removeAttribute('disabled');
+      return true;
+    }
+    return false;
+  };
+  uploadResize.oninput = uploadResize.onchange = resizeFormIsValid;
   /**
    * Форма загрузки изображения.
    * @type {HTMLFormElement}
    */
   var uploadForm = document.forms['upload-select-image'];
+
 
   /**
    * Форма кадрирования изображения.
