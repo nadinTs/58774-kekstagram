@@ -77,16 +77,18 @@
   var resizeSize = document.getElementById('resize-size');
   var resizeFwd = document.getElementById('resize-fwd');
   var uploadResize = document.forms['upload-resize'];
+  var sumX, sumY;
 
   var resizeFormIsValid = function() {
     var sizeWidth = currentResizer._image.naturalWidth;
     var sizeHeight = currentResizer._image.naturalHeight;
-    var side = resizeSize.value;
-    resizeX.max = sizeWidth - resizeX.value - side;
-    resizeY.max = sizeHeight - resizeY.value - side;
-    resizeX.min = 0;
-    resizeY.min = 0;
-    if (resizeX.value > resizeX.max || resizeY.value > resizeY.max || resizeX.value < resizeX.min || resizeY.value < resizeY.min) {
+    sumX = Number(resizeSize.value) + Number(resizeX.value);
+    sumY = Number(resizeSize.value) + Number(resizeY.value);
+    console.log('sumY', sumY);
+    console.log('sumX', sumX);
+    console.log('resizeY.value', resizeY.value);
+    console.log('resizeX.value', resizeX.value);
+    if (sumX > sizeWidth || sumY > sizeHeight || resizeX.value < 0 || resizeY.value < 0) {
       resizeFwd.setAttribute('disabled', 'disabled');
     } else {
       resizeFwd.removeAttribute('disabled');
