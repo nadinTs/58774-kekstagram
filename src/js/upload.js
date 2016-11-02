@@ -1,4 +1,4 @@
-/* global Resizer: true */
+/* global Resizer: true Cookies: true*/
 
 /**
  * @fileoverview
@@ -244,6 +244,18 @@
    * записав сохраненный фильтр в cookie.
    * @param {Event} evt
    */
+  var uploadFilter;
+  var now = new Date();
+  var year = now.getFullYear();
+  var bd = new Date(year, 11, 9);
+  var oldyear = new Date(year - 1, 11, 9);
+  var day;
+  if ((now - bd) < 0 ) {
+    day = Math.ceil((now - oldyear) / (1000 * 60 * 60 * 24));
+  } else {
+    day = Math.ceil((now - bd) / (1000 * 60 * 60 * 24));
+  }
+  console.log(day);
   filterForm.onsubmit = function(evt) {
     evt.preventDefault();
 
@@ -252,12 +264,15 @@
 
     filterForm.classList.add('invisible');
     uploadForm.classList.remove('invisible');
+    Cookies.set('upload-filter', uploadFilter, {expires: day});
   };
-
   /**
    * Обработчик изменения фильтра. Добавляет класс из filterMap соответствующий
    * выбранному значению в форме.
    */
+
+  filterImage.className = 'filter-image-preview ' + Cookies.get('upload-filter');
+
   filterForm.onchange = function() {
     if (!filterMap) {
       // Ленивая инициализация. Объект не создается до тех пор, пока
@@ -279,6 +294,7 @@
     // убрать предыдущий примененный класс. Для этого нужно или запоминать его
     // состояние или просто перезаписывать.
     filterImage.className = 'filter-image-preview ' + filterMap[selectedFilter];
+    uploadFilter = filterMap[selectedFilter];
   };
 
   cleanupResizer();
