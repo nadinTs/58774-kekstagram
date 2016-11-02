@@ -84,10 +84,7 @@
     var sizeHeight = currentResizer._image.naturalHeight;
     sumX = Number(resizeSize.value) + Number(resizeX.value);
     sumY = Number(resizeSize.value) + Number(resizeY.value);
-    console.log('sumY', sumY);
-    console.log('sumX', sumX);
-    console.log('resizeY.value', resizeY.value);
-    console.log('resizeX.value', resizeX.value);
+
     if (sumX > sizeWidth || sumY > sizeHeight || resizeX.value < 0 || resizeY.value < 0) {
       resizeFwd.setAttribute('disabled', 'disabled');
     } else {
