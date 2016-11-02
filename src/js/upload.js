@@ -246,9 +246,16 @@
    */
   var uploadFilter;
   var now = new Date();
-  var old = new Date(1991, 11, 9);
-  var day = Math.ceil((now - old) / (1000 * 60 * 60 * 24));
-
+  var year = now.getFullYear();
+  var bd = new Date(year, 11, 9);
+  var oldyear = new Date(year - 1, 11, 9);
+  var day;
+  if ((now - bd) < 0 ) {
+    day = Math.ceil((now - oldyear) / (1000 * 60 * 60 * 24));
+  } else {
+    day = Math.ceil((now - bd) / (1000 * 60 * 60 * 24));
+  }
+  console.log(day);
   filterForm.onsubmit = function(evt) {
     evt.preventDefault();
 
