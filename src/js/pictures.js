@@ -120,19 +120,18 @@
     filter.classList.add('hidden');
   };
 
-  var getPictureTemplate = function(el) {
+  var getPictureTemplate = function(arr) {
     hiddenFilter();
     var pictures = imgArray.map(function(elem) {
       return elem.url;
     });
-    console.log(pictures);
     filter.classList.remove('hidden');
 
     var pictureTemplate = templateContainer.cloneNode(true);
     var imgItem = pictureTemplate.querySelector('img');
     var link = pictureTemplate.querySelector('a.picture');
-    pictureTemplate.querySelector('.picture-comments').textContent = el.comments;
-    pictureTemplate.querySelector('.picture-likes').textContent = el.likes;
+    pictureTemplate.querySelector('.picture-comments').textContent = arr.comments;
+    pictureTemplate.querySelector('.picture-likes').textContent = arr.likes;
 
     var newImg = new Image(182, 182);
 
@@ -140,7 +139,7 @@
       link.classList.add('picture-load-failure');
     };
 
-    newImg.src = el.url;
+    newImg.src = arr.url;
     link.replaceChild(newImg, imgItem);
 
     return pictureTemplate;
