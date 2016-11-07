@@ -131,8 +131,10 @@
     pictureTemplate.querySelector('.picture-likes').textContent = el.likes;
 
     var newImg = new Image(182, 182);
-    newImg.onload = function() {
-      link.replaceChild(newImg, imgItem);
+    newImg.onload = function(evt) {
+      imgItem.src = evt.target.src;
+      imgItem.width = evt.target.width;
+      imgItem.height = evt.target.height;
     };
     newImg.onerror = function() {
       link.classList.add('picture-load-failure');
