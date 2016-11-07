@@ -132,13 +132,14 @@
     pictureTemplate.querySelector('.picture-likes').textContent = el.likes;
 
     var newImg = new Image(182, 182);
-
+    newImg.onload = function() {
+      link.replaceChild(newImg, imgItem);
+    };
     newImg.onerror = function() {
       link.classList.add('picture-load-failure');
     };
 
     newImg.src = el.url;
-    link.replaceChild(newImg, imgItem);
 
     return pictureTemplate;
   };
