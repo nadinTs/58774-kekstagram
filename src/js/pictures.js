@@ -115,7 +115,6 @@
   var template = document.querySelector('template');
   var templateContainer = 'content' in template ? template.content : template;
 
-
   var hiddenFilter = function() {
     filter.classList.add('hidden');
   };
@@ -143,7 +142,6 @@
 
     return pictureTemplate;
   };
-
 
   var renderPictures = function(pictures) {
     pictures.forEach(function(elem) {
