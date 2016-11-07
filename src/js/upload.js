@@ -255,7 +255,6 @@
   } else {
     day = Math.ceil((now - bd) / (1000 * 60 * 60 * 24));
   }
-  console.log(day);
   filterForm.onsubmit = function(evt) {
     evt.preventDefault();
 
