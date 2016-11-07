@@ -52,5 +52,5 @@
     });
   };
 
-  load(PICTURE_LOAD_URL, renderPictures, '__jsonpCallback');
+  load(PICTURE_LOAD_URL, renderPictures);
 })();
