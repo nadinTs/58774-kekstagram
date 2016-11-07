@@ -148,6 +148,5 @@
       container.appendChild(getPictureTemplate(elem));
     });
   };
-
   renderPictures(imgArray);
 })();
