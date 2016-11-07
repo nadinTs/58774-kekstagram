@@ -35,19 +35,22 @@
     pictureTemplate.querySelector('.picture-likes').textContent = el.likes;
 
     var newImg = new Image(182, 182);
-
+    newImg.onload = function(evt) {
+      imgItem.src = evt.target.src;
+      imgItem.width = evt.target.width;
+      imgItem.height = evt.target.height;
+    };
     newImg.onerror = function() {
       link.classList.add('picture-load-failure');
     };
 
     newImg.src = el.url;
-    link.replaceChild(newImg, imgItem);
 
     return pictureTemplate;
   };
 
-  var renderPictures = function(el) {
-    el.forEach(function(elem) {
+  var renderPictures = function(pictures) {
+    pictures.forEach(function(elem) {
       container.appendChild(getPictureTemplate(elem));
     });
   };
