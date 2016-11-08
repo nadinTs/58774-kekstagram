@@ -1,9 +1,7 @@
-/*eslint no-unused-vars: 0*/
-
 'use strict';
 
-var resizer = require('../js/resizer.js');
-var upload = require('../js/upload.js');
+require('../js/resizer.js');
+require('../js/upload.js');
 var load = require('../js/load.js');
 var renderPictures = require('../js/pictures.js');
 
