@@ -13,12 +13,12 @@ var setPictures = function(arrayEl) {
 
   for (var i = 0; i < arrayEl.length; i++) {
     arrayEl[i].setAttribute('id', i);
-    arrayEl[i].addEventListener('click', showCount)
+    arrayEl[i].addEventListener('click', showCount);
   }
 };
 var showCount = function() {
   var activePicture = this.getAttribute('id');
-  show(activePicture)
+  show(activePicture);
 };
 
 var show = function(number) {
