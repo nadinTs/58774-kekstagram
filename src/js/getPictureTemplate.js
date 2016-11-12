@@ -25,7 +25,6 @@ var getPictureTemplate = function(el) {
   };
 
   newImg.src = el.url;
-
   return pictureTemplate;
 };
 
