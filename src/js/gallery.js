@@ -1,59 +1,50 @@
 'use strict';
 
-var pictures;
-var galleryOverlay;
-var activePicture;
-var picturesDom;
+var Gallery = function() {
+  this.galleryOverlay = document.querySelector('.gallery-overlay');
+  this.galleryOverlayClose = this.galleryOverlay.querySelector('.gallery-overlay-close');
+  this.galleryOverlayImage = this.galleryOverlay.querySelector('.gallery-overlay-image');
 
-var Gallery = function(arr) {
 
-  picturesDom = document.querySelectorAll('.picture');
-  pictures = arr;
-  this.setPictures(picturesDom);
-};
-Gallery.prototype.setPictures = function(arrayEl) {
-
-  for (var i = 0; i < arrayEl.length; i++) {
-    arrayEl[i].setAttribute('id', i);
-    arrayEl[i].addEventListener('click', showCount);
-  }
-};
-var showCount = function() {
-  activePicture = this.getAttribute('id');
-  show(activePicture);
+  this.picturesDom = document.querySelectorAll('.picture');
 };
 
-var show = function(number) {
-  galleryOverlay = document.querySelector('.gallery-overlay');
-  var galleryOverlayClose = galleryOverlay.querySelector('.gallery-overlay-close');
-
-  galleryOverlay.classList.remove('invisible');
-  galleryOverlayClose.addEventListener('click', hide);
-  setActivePicture(number);
-  galleryOverlay.addEventListener('click', function() {
-    if (number < pictures.length) {
-      setActivePicture((number++));
-    } else {
-      number = 0;
-      setActivePicture((number++));
-    }
-  });
+Gallery.prototype.setPictures = function(pictures) {
+  this.pictures = pictures;
 };
 
-var setActivePicture = function(count) {
-  var activePicturElem = pictures[count];
-  var galleryOverlayImage = galleryOverlay.querySelector('.gallery-overlay-image');
-  var galleryOverlayControlsLike = galleryOverlay.querySelector('.likes-count');
-  var galleryOverlayControlsComments = galleryOverlay.querySelector('.comments-count');
-  galleryOverlayImage.setAttribute('src', activePicturElem.url);
-  galleryOverlayControlsLike.innerText = activePicturElem.likes;
-  galleryOverlayControlsComments.innerText = activePicturElem.comments;
+Gallery.prototype.show = function(number) {
+  var self = this;
+
+  this.galleryOverlay.classList.remove('invisible');
+
+  this.galleryOverlayClose.onclick = function() {
+    self.hide();
+  };
+  this.setActivePicture(number);
+
+  this.galleryOverlay.onclick = function() {
+    var nextPicture = (+self.activePicture + 1) % self.pictures.length;
+
+    self.setActivePicture(nextPicture);
+  };
 
 };
 
-var hide = function() {
-  galleryOverlay.classList.add('invisible');
+Gallery.prototype.setActivePicture = function(number) {
+  this.activePicture = number;
+  this.galleryOverlayImage.src = this.pictures[number].url;
+  this.galleryOverlayControlsLike = this.galleryOverlay.querySelector('.likes-count');
+  this.galleryOverlayControlsComments = this.galleryOverlay.querySelector('.comments-count');
+  this.galleryOverlayControlsLike.innerText = this.pictures[number].likes;
+  this.galleryOverlayControlsComments.innerText = this.pictures[number].comments;
+
 };
 
+Gallery.prototype.hide = function() {
+  this.galleryOverlay.classList.add('invisible');
+  this.galleryOverlayClose.onclick = null;
+  this.galleryOverlay.onclick = null;
+};
+module.exports = new Gallery();
 
-module.exports = Gallery;
