@@ -2,14 +2,16 @@
 
 var pictures;
 var galleryOverlay;
+var activePicture;
+var picturesDom;
+
 var Gallery = function(arr) {
 
-  var picturesDom = document.querySelectorAll('.picture');
+  picturesDom = document.querySelectorAll('.picture');
   pictures = arr;
-  setPictures(picturesDom);
-
+  this.setPictures(picturesDom);
 };
-var setPictures = function(arrayEl) {
+Gallery.prototype.setPictures = function(arrayEl) {
 
   for (var i = 0; i < arrayEl.length; i++) {
     arrayEl[i].setAttribute('id', i);
@@ -17,7 +19,7 @@ var setPictures = function(arrayEl) {
   }
 };
 var showCount = function() {
-  var activePicture = this.getAttribute('id');
+  activePicture = this.getAttribute('id');
   show(activePicture);
 };
 
@@ -29,7 +31,6 @@ var show = function(number) {
   galleryOverlayClose.addEventListener('click', hide);
   setActivePicture(number);
   galleryOverlay.addEventListener('click', function() {
-    // var clickcount++;
     if (number < pictures.length) {
       setActivePicture((number++));
     } else {
@@ -53,5 +54,6 @@ var setActivePicture = function(count) {
 var hide = function() {
   galleryOverlay.classList.add('invisible');
 };
+
 
 module.exports = Gallery;
