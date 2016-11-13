@@ -41,13 +41,13 @@ var show = function(number) {
 };
 
 var setActivePicture = function(count) {
-  var activePicture = pictures[count];
+  var activePicturElem = pictures[count];
   var galleryOverlayImage = galleryOverlay.querySelector('.gallery-overlay-image');
   var galleryOverlayControlsLike = galleryOverlay.querySelector('.likes-count');
   var galleryOverlayControlsComments = galleryOverlay.querySelector('.comments-count');
-  galleryOverlayImage.setAttribute('src', activePicture.url);
-  galleryOverlayControlsLike.innerText = activePicture.likes;
-  galleryOverlayControlsComments.innerText = activePicture.comments;
+  galleryOverlayImage.setAttribute('src', activePicturElem.url);
+  galleryOverlayControlsLike.innerText = activePicturElem.likes;
+  galleryOverlayControlsComments.innerText = activePicturElem.comments;
 
 };
 
