@@ -33,9 +33,9 @@ Gallery.prototype.setActivePicture = function(number) {
   this.activePicture = number;
   var galleryOverlayImage = document.querySelector('.gallery-overlay-image');
   var galleryOverlayControlsLike = document.querySelector('.likes-count');
-  var galleryOverlayControlsComments =document.querySelector('.comments-count');
-  
+  var galleryOverlayControlsComments = document.querySelector('.comments-count');
   galleryOverlayImage.src = this.pictures[number].url;
+
   galleryOverlayControlsLike.innerText = this.pictures[number].likes;
   galleryOverlayControlsComments.innerText = this.pictures[number].comments;
 
@@ -47,4 +47,3 @@ Gallery.prototype.hide = function() {
   this.galleryOverlay.onclick = null;
 };
 module.exports = new Gallery();
-
