@@ -1,9 +1,13 @@
 'use strict';
+
+var Gallery = require('../js/gallery.js');
+
+
 var filter = document.querySelector('.filters');
 var template = document.querySelector('template');
 var templateContainer = 'content' in template ? template.content : template;
 
-var getPictureTemplate = function(el) {
+var getPictureTemplate = function(el, pictureIndex) {
   filter.classList.remove('hidden');
   filter.classList.add('hidden');
 
@@ -13,6 +17,7 @@ var getPictureTemplate = function(el) {
 
   pictureTemplate.querySelector('.picture-comments').textContent = el.comments;
   pictureTemplate.querySelector('.picture-likes').textContent = el.likes;
+  link.setAttribute('data-id', pictureIndex);
 
   var newImg = new Image(182, 182);
   newImg.onload = function(evt) {
@@ -26,6 +31,9 @@ var getPictureTemplate = function(el) {
 
   newImg.src = el.url;
 
+  link.addEventListener('click', function() {
+    Gallery.show(this.getAttribute('data-id'));
+  });
   return pictureTemplate;
 };
 

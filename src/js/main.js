@@ -2,6 +2,7 @@
 
 require('../js/resizer.js');
 require('../js/upload.js');
+
 var load = require('../js/load.js');
 var renderPictures = require('../js/pictures.js');
 
