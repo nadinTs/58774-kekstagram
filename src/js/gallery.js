@@ -3,8 +3,6 @@
 var Gallery = function() {
   this.galleryOverlay = document.querySelector('.gallery-overlay');
   this.galleryOverlayClose = this.galleryOverlay.querySelector('.gallery-overlay-close');
-  this.galleryOverlayImage = this.galleryOverlay.querySelector('.gallery-overlay-image');
-
 
   this.picturesDom = document.querySelectorAll('.picture');
 };
@@ -33,11 +31,13 @@ Gallery.prototype.show = function(number) {
 
 Gallery.prototype.setActivePicture = function(number) {
   this.activePicture = number;
-  this.galleryOverlayImage.src = this.pictures[number].url;
-  this.galleryOverlayControlsLike = this.galleryOverlay.querySelector('.likes-count');
-  this.galleryOverlayControlsComments = this.galleryOverlay.querySelector('.comments-count');
-  this.galleryOverlayControlsLike.innerText = this.pictures[number].likes;
-  this.galleryOverlayControlsComments.innerText = this.pictures[number].comments;
+  var galleryOverlayImage = document.querySelector('.gallery-overlay-image');
+  var galleryOverlayControlsLike = document.querySelector('.likes-count');
+  var galleryOverlayControlsComments =document.querySelector('.comments-count');
+  
+  galleryOverlayImage.src = this.pictures[number].url;
+  galleryOverlayControlsLike.innerText = this.pictures[number].likes;
+  galleryOverlayControlsComments.innerText = this.pictures[number].comments;
 
 };
 

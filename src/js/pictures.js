@@ -5,8 +5,7 @@ var Gallery = require('../js/gallery.js');
 
 var renderPictures = function(pictures) {
   var container = document.querySelector('.pictures');
-  var pictureIndex = 0;
-  pictures.forEach(function(elem) {
+  pictures.forEach(function(elem, pictureIndex) {
     container.appendChild(getPictureTemplate(elem, pictureIndex++));
   });
   Gallery.setPictures(pictures);
