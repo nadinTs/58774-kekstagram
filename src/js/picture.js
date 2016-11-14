@@ -24,7 +24,7 @@ var Picture = function(data, pictureIndex) {
     imgItem.width = evt.target.width;
     imgItem.height = evt.target.height;
   };
- 
+
   newImg.onerror = function() {
     self.link.classList.add('picture-load-failure');
   };
