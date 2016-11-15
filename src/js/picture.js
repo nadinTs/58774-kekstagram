@@ -31,7 +31,7 @@ var Picture = function(data, pictureIndex) {
 
   newImg.src = data.url;
 
-  this.link.addEventListener('click', Picture.prototype.open);
+  this.link.addEventListener('click', this.prototype.open);
 };
 
 Picture.prototype.open = function() {
@@ -39,7 +39,7 @@ Picture.prototype.open = function() {
 };
 
 Picture.prototype.remove = function() {
-  this.link.removeEventListener('click', Picture.prototype.open);
+  this.link.removeEventListener('click', this.prototype.open);
 };
 
 module.exports = Picture;
