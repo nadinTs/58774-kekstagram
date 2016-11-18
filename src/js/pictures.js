@@ -19,39 +19,35 @@ var PICTURE_LOAD_URL = 'http://localhost:1507/api/pictures';
 var pageNumber = 0;
 var pageSize = 12;
 var activeFilter = DEFAULT_FILTER;
-// var filter = 12;
+var THROTTLE_TIMEOUT = 100;
 var GAP = 100;
 var pictureIndex = 0;
-
+var lastCall = Date.now();
 
 var footer = document.querySelector('footer');
 var filters = document.querySelector('.filters');
 var container = document.querySelector('.pictures');
 
 var loadPictures = function(filter, currentPageNumber) {
-  console.log('Loading page: ' + currentPageNumber);
   load(PICTURE_LOAD_URL, {
     from: currentPageNumber * pageSize,
     to: (currentPageNumber + 1) * pageSize,
     filter: filter
   },
-    renderPictures);
+  renderPictures);
 };
 
 var changeFilter = function(filterID) {
 
-  if ( typeof (filterID) === 'undefined') {
+  if (typeof (filterID) === 'undefined') {
     filterID = DEFAULT_FILTER;
   }
-
-  console.log('Changing filter to: ' + filterID);
 
   container.innerHTML = '';
   activeFilter = filterID;
   pageNumber = 0;
   pictureIndex = 0;
   Gallery.clearPictures();
-  // filter.classList.add('hidden');
   loadPictures(filterID, pageNumber);
   filters.classList.remove('hidden');
 };
@@ -62,10 +58,13 @@ filters.addEventListener('change', function(evt) {
 }, true);
 
 window.addEventListener('scroll', function() {
-  if (footer.getBoundingClientRect().bottom - window.innerHeight <= GAP) {
-    console.log(window.innerHeight);
-    loadPictures(activeFilter, ++pageNumber);
+  if (Date.now() - lastCall >= THROTTLE_TIMEOUT) {
+    if (footer.getBoundingClientRect().bottom - window.innerHeight <= GAP) {
+      console.log(window.innerHeight);
+      loadPictures(activeFilter, ++pageNumber);
+    }
   }
+  lastCall = Date.now();
 });
 
 var renderPictures = function(pictures) {
