@@ -5,11 +5,19 @@ var Gallery = function() {
   this.galleryOverlayClose = this.galleryOverlay.querySelector('.gallery-overlay-close');
 
   this.picturesDom = document.querySelectorAll('.picture');
+  this.pictures = [];
 };
 
-Gallery.prototype.setPictures = function(pictures) {
-  this.pictures = pictures;
+Gallery.prototype.addPictures = function(pictures) {
+  var self = this;
+  pictures.forEach(function(picture) {
+    self.pictures.push(picture);
+  });
 };
+
+Gallery.prototype.clearPictures = function() {
+  this.pictures = [];
+}
 
 Gallery.prototype.show = function(number) {
   var self = this;
