@@ -31,16 +31,16 @@ var container = document.querySelector('.pictures');
 var loadPictures = function(filter, currentPageNumber) {
   console.log('Loading page: ' + currentPageNumber);
   load(PICTURE_LOAD_URL, {
-      from: currentPageNumber * pageSize,
-      to: (currentPageNumber + 1) * pageSize,
-      filter: filter
-    },
+    from: currentPageNumber * pageSize,
+    to: (currentPageNumber + 1) * pageSize,
+    filter: filter
+  },
     renderPictures);
-}
+};
 
 var changeFilter = function(filterID) {
 
-  if ( typeof(filterID) === "undefined") {
+  if ( typeof (filterID) === 'undefined') {
     filterID = DEFAULT_FILTER;
   }
 
@@ -54,7 +54,7 @@ var changeFilter = function(filterID) {
   // filter.classList.add('hidden');
   loadPictures(filterID, pageNumber);
   filters.classList.remove('hidden');
-}
+};
 
 filters.addEventListener('change', function(evt) {
   console.log(evt);

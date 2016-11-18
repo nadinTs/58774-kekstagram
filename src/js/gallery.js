@@ -17,7 +17,7 @@ Gallery.prototype.addPictures = function(pictures) {
 
 Gallery.prototype.clearPictures = function() {
   this.pictures = [];
-}
+};
 
 Gallery.prototype.show = function(number) {
   var self = this;
