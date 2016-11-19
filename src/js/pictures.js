@@ -53,14 +53,12 @@ var changeFilter = function(filterID) {
 };
 
 filters.addEventListener('change', function(evt) {
-  console.log(evt);
   changeFilter(evt.target.id);
 }, true);
 
 window.addEventListener('scroll', function() {
   if (Date.now() - lastCall >= THROTTLE_TIMEOUT) {
     if (footer.getBoundingClientRect().bottom - window.innerHeight <= GAP) {
-      console.log(window.innerHeight);
       loadPictures(activeFilter, ++pageNumber);
     }
   }
