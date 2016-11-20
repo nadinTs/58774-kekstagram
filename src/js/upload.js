@@ -109,6 +109,7 @@ module.exports = (function() {
     }
   };
 
+  window.addEventListener('resizerchange', resizeFormIsValid);
   window.addEventListener('resizerchange', syncFormWithResizer);
 
   uploadResize.addEventListener('input', function(evt) {
